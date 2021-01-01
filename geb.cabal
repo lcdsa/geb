@@ -1,0 +1,16 @@
+name: geb
+version: 0
+author: Arianna Masciolini, Claudio Pannacci
+maintainer: uzkamascio@gmail.com, pannacciclaudio@gmail.com
+category: Misc
+build-type: Simple
+extra-source-files: README.md
+cabal-version: >= 1.10
+
+library
+    exposed-modules: MIU
+    other-modules: Parsing
+    default-language: Haskell2010
+    build-depends:
+        base,
+        QuickCheck
