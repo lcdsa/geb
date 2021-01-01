@@ -6,6 +6,7 @@ import Data.Maybe ( maybeToList )
 import Test.QuickCheck
 
 -- pag 36 --
+
 data MIU = M | I | U
  deriving Eq
 
