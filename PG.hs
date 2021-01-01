@@ -1,23 +1,24 @@
 module PG where
 
-import Test.QuickCheck
-import Parsing
-import Data.Maybe
+import Prelude hiding ( Char, String )
+import Parsing ( oneOrMore, parse, readsP )
+import Data.Maybe ( maybeToList )
+import Test.QuickCheck ( elements, Arbitrary(arbitrary) )
 
 -- pag 50 --
 
-data PG = P | G | Dash
+data Char = P | G | Dash
  deriving Eq
 
-type PGString = [PG]
+type String = [Char]
 
-instance Show PG where
+instance Show Char where
    show P = "p"
    show G = "g"
    show Dash = "-"
    showList = showString . concatMap show
 
-instance Read PG where
+instance Read Char where
    readsPrec _ pg
     = case pg of
       ('p':pg) -> [(P,pg)]
@@ -26,5 +27,5 @@ instance Read PG where
       ________ -> []
    readList = maybeToList . parse (oneOrMore readsP)
 
-instance Arbitrary PG where
+instance Arbitrary Char where
    arbitrary = elements [P,G,Dash]
