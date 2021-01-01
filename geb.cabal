@@ -8,7 +8,9 @@ extra-source-files: README.md
 cabal-version: >= 1.10
 
 library
-    exposed-modules: MIU
+    exposed-modules: 
+        MIU,
+        PG
     other-modules: Parsing
     default-language: Haskell2010
     build-depends:
