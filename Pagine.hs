@@ -22,9 +22,8 @@ pag 80 = do
       putStrLn ""
       putStrLn "Qualche indizio/osservazione:"
       putStrLn $ "- lo \"sfondo\" (o complemento) di questa \"figura\": " 
-              ++ (show $ background figure)
+      print $ background figure
       putStrLn $ "- il numero successivo: " ++ (show $ fromJust $ next figure)
-      putStrLn "- gli N numeri successivi (inserire N qui sotto): "
-      n <- getLine
-      print $ continue' figure (read n :: Int)
+      putStrLn "- la sequenza \"allungata\" di 5: "
+      print $ continue' figure 5
 pag _ = putStrLn "Niente di interessante..."
