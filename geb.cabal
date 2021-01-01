@@ -10,7 +10,8 @@ cabal-version: >= 1.10
 library
     exposed-modules: 
         MIU,
-        PG
+        PG,
+        NumberSequence
     other-modules: 
         Parsing
         GEB
