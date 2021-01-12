@@ -12,7 +12,7 @@ library
         MIU,
         PG,
         NumberSequence,
-        Pagine
+        RoyalTheme
     other-modules: 
         Parsing
     default-language: Haskell2010

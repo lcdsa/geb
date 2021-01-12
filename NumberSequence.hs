@@ -13,7 +13,7 @@ skip :: [Int] -> ([Int],[Int])
 skip figure = (skipped, toSkip)
     where 
         figure' = background figure 
-        lastSkipped = (last figure) - (last $ init figure)
+        lastSkipped = last figure - last (init figure)
         toSkip = dropWhile (<= lastSkipped) figure'
         skipped = takeWhile (<= lastSkipped) figure'
 
@@ -35,14 +35,14 @@ background figure = [1..(last figure)] \\ figure
 next :: [Int] -> Maybe Int
 next figure = if null $ toSkip figure 
     then Nothing 
-    else Just $ (last figure) + (head $ toSkip figure)
+    else Just $ last figure + head (toSkip figure)
 
 -- | Given a sequence such as figure, continue it until possible
 -- (tends to be infinite ;)
 continue :: [Int] -> [Int] 
 continue figure = case next figure of
     (Just n) -> continue (figure ++ [n])
-    (Nothing) -> figure
+    Nothing -> figure
 
 -- | Given a sequence such as figure, continue it with its m successors,
 -- if possible
@@ -50,4 +50,4 @@ continue' :: [Int] -> Int -> [Int]
 continue' figure 0 = figure
 continue' figure m = case next figure of
     (Just n) -> continue' (figure ++ [n]) (m - 1)
-    (Nothing) -> figure
+    Nothing -> figure
