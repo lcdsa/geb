@@ -1,14 +1,19 @@
 module Pagine where
 
 import Data.Maybe
+import Euterpea (playDev)
 
 import MIU 
 import PG
 import NumberSequence
+import RoyalTheme
 
 import Test.QuickCheck
 
 pag :: Int -> IO ()
+pag 6 = do
+      putStrLn "Il Tema Regio"
+      playDev 2 royalTheme 
 pag 36 = do
       putStrLn "Ecco alcune stringhe del sistema MIU:"
       sample (arbitrary :: Gen MIUString)
@@ -23,7 +28,7 @@ pag 80 = do
       putStrLn "Qualche indizio/osservazione:"
       putStrLn $ "- lo \"sfondo\" (o complemento) di questa \"figura\": " 
       print $ background figure
-      putStrLn $ "- il numero successivo: " ++ (show $ fromJust $ next figure)
+      putStrLn $ "- il numero successivo: " ++ show (fromJust $ next figure)
       putStrLn "- la sequenza \"allungata\" di 5: "
       print $ continue' figure 5
 pag _ = putStrLn "Niente di interessante..."
