@@ -1,9 +1,10 @@
 module Bach where
 
 import Euterpea
+import Eutermea
 
 royalTheme :: Music Pitch
-royalTheme = foldl (:+:) (rest 0) [
+royalTheme = fromList [
     -- bar by bar
     c 5 (1/2), ef 5 (1/2), 
     g 5 (1/2), af 5 (1/2), 
