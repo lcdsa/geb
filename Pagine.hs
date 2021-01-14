@@ -6,7 +6,8 @@ import Eutermea (play)
 import MIU 
 import PG
 import NumberSequence
-import RoyalTheme
+import Bach (royalTheme)
+import Kim (goodKingWenceslas)
 
 import Test.QuickCheck
 
