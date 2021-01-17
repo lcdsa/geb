@@ -1,13 +1,14 @@
 module Pagine where
 
 import Data.Maybe
-import Eutermea (play)
+import Euterpea hiding (play)
 
+import Eutermea
 import MIU 
 import PG
 import NumberSequence
 import Bach (royalTheme)
-import Kim (goodKingWenceslas)
+import GoodKingWenceslas (theme, variation)
 
 import Test.QuickCheck
 
@@ -15,6 +16,11 @@ pag :: Int -> IO ()
 pag 6 = do
       putStrLn "Il Tema Regio"
       play royalTheme 
+pag 9 = do
+      putStrLn "Canone inverso di Scott E. Kim sul tema Good King Wenceslas"
+      play $ theme :=: variation
+      putStrLn "Canone inverso \"algoritmico\" sul tema Good King Wenceslas"
+      play $ inverseCanon (2/4) theme
 pag 36 = do
       putStrLn "Ecco alcune stringhe del sistema MIU:"
       sample (arbitrary :: Gen MIUString)

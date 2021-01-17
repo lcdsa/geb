@@ -13,7 +13,7 @@ library
         PG,
         NumberSequence,
         Bach,
-        Kim
+        GoodKingWenceslas
     other-modules: 
         Parsing,
         Eutermea
@@ -33,7 +33,7 @@ executable Pagine
         NumberSequence,
         PG,
         Bach,
-        Kim
+        GoodKingWenceslas
     build-depends:
         base,
         Euterpea,
