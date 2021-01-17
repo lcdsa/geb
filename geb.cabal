@@ -25,20 +25,19 @@ library
         deepseq
 
 executable Pagine
-    -- gf-ud
-  main-is: Pagine.hs
-  other-modules:
-    Parsing,
-    Eutermea,
-    MIU,
-    NumberSequence,
-    PG,
-    Bach,
-    Kim
-  build-depends:
-    base,
-    Euterpea,
-    QuickCheck,
-    deepseq
-  ghc-options: -main-is Pagine
-  default-language: Haskell2010
+    main-is: Pagine.hs
+    other-modules:
+        Parsing,
+        Eutermea,
+        MIU,
+        NumberSequence,
+        PG,
+        Bach,
+        Kim
+    build-depends:
+        base,
+        Euterpea,
+        QuickCheck,
+        deepseq
+    ghc-options: -main-is Pagine
+    default-language: Haskell2010
