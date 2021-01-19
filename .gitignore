@@ -1,4 +1,7 @@
 *
 !.gitignore
 !*.hs
+!*.cabal
+!*.yaml
 !*.md
+.stack-work/
