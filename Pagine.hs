@@ -22,9 +22,13 @@ pag 9 = do
       putStrLn "Canone inverso \"algoritmico\" sul tema Good King Wenceslas"
       play $ inverseCanon (2/4) theme
 pag 36 = do
-      putStrLn "Ecco alcune stringhe del sistema MIU:"
-      sample (arbitrary :: Gen MIUString)
-      putStrLn ""
+   putStrLn "Alcune stringhe del sistema MIU:"
+   sample (arbitrary :: Gen MIU.String)
+   putStrLn ""
+pag 37 = do
+   putStrLn "Stringhe in nostro possesso:"
+   putStrLn ""
+   putStrLn $ unlines $ map show theorems
 pag 80 = do
       putStrLn $ "Ecco un rompicapo su cui riflettere (...): " 
             ++ "come si può caratterizzare il seguente insieme di numeri "
