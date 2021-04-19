@@ -30,7 +30,7 @@ jabberwocky =
             ]
         e = [
             "Oh-issa! Oh-issa! Ancora un po'!",
-            "La spada vorpa sgozzosgnaccerò!",
+            "La spada vorpa sgozzosgnaccherò!",
             "Lo lasciò morto, il collo torto",
             "E indietro galfoppò."
             ]
