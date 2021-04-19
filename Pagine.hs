@@ -9,6 +9,7 @@ import PG
 import NumberSequence
 import Bach (royalTheme)
 import GoodKingWenceslas (theme, variation)
+import Jabberwocky (jabberwocky)
 
 import Test.QuickCheck
 
@@ -42,6 +43,14 @@ pag 80 = do
       putStrLn $ "- il numero successivo: " ++ show (fromJust $ next figure)
       putStrLn "- la sequenza \"allungata\" di 5: "
       print $ continue' figure 5
+pag 397 = do 
+      putStrLn "IL MASCELLONTE"
+      putStrLn $ "traduzione italiana alternativa del \"Jabberwocky\""
+              ++ "di Lewis Carrol, a cura di Arianna Masciolini"
+      putStrLn ""
+      putStrLn "-----------------------------------------"
+      putStrLn ""
+      putStrLn jabberwocky
 pag _ = putStrLn "Niente di interessante..."
 
 main = undefined

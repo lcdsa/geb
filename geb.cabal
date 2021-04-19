@@ -33,7 +33,8 @@ executable Pagine
         NumberSequence,
         PG,
         Bach,
-        GoodKingWenceslas
+        GoodKingWenceslas,
+        Jabberwocky
     build-depends:
         base,
         Euterpea,
