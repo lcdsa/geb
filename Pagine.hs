@@ -16,8 +16,9 @@ import Test.QuickCheck
 
 index = 
  [ 6, 9                 -- Introduzione: un'offerta musico-logica
- , 36, 37, 38, 39, 43   -- Capitolo I (Il gioco MU)
- , 80                   -- Capitolo III (Figura e sfondo)
+ , 36, 37, 38, 39, 43   -- Capitolo I - Il gioco MU
+ , 50, 51, 57           -- Capitolo II - Significato e forma in matematica
+ , 80                   -- Capitolo III - Figura e sfondo
  , 397                  -- Suite anglo-franco-italo-tedesca
  ]
 
@@ -41,9 +42,9 @@ pag 6 = do
    play royalTheme 
 pag 9 = do
    putStrLn "\nCanone inverso di Scott E. Kim sul tema Good King Wenceslas"
-   play $ theme :=: variation
+   play (theme :=: variation)
    putStrLn "\nCanone inverso \"algoritmico\" sul tema Good King Wenceslas"
-   play $ inverseCanon (2/4) theme
+   play (inverseCanon (2/4) theme)
 pag 36 = do
    putStrLn "\nAlcune stringhe del sistema MIU:"
    sample (arbitrary :: Gen MIU.String)
