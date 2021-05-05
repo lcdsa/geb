@@ -22,6 +22,12 @@ index =
  , 397                  -- Suite anglo-franco-italo-tedesca
  ]
 
+showIndex = "Pagine con contenuti implementabili:\n"
+   ++ intercalate ", " (map show index)
+
+toc :: IO () 
+toc = pag 0
+
 pag :: Int -> IO ()
 pag 0 = putStr $ unlines
    [ "-----------------------------------------"
@@ -33,10 +39,10 @@ pag 0 = putStr $ unlines
    , " di Douglas R. Hofstadter."
    , "-----------------------------------------"
    , ""
-   , "Pagine con contenuti implementabili:"
-   , intercalate ", " (map show index)
+   , showIndex
    , ""
    ]
+--------------------- Introduzione -------------------------------
 pag 6 = do
    putStrLn "\nIl Tema Regio"
    play royalTheme 
@@ -45,16 +51,25 @@ pag 9 = do
    play (theme :=: variation)
    putStrLn "\nCanone inverso \"algoritmico\" sul tema Good King Wenceslas"
    play (inverseCanon (2/4) theme)
+---------------------- Capitolo I --------------------------------
 pag 36 = do
-   putStrLn "\nAlcune stringhe del sistema MIU:"
+   putStr $ unlines
+      [ ""
+      , "La prima cosa da dire del nostro sistema formale, il \"sistema MIU\""
+         ++ " è che esso utilizza soltanto tre lettere dell'alfabeto:"
+      , intercalate ", " (map show [M,I,U])
+      , ""
+      , "Ecco alcune stringhe del sistema MIU:"
+      ]
    sample (arbitrary :: Gen MIU.String)
    putStrLn ""
 pag 37 = putStr $ unlines
    [ ""
-   , "Stringhe in nostro possesso:"
+   , "Ma sebbene tutte queste stringhe siano legittime,"
+      ++ " non sono stringhe \"in nostro possesso\"."
+   , "In effetti, l'unica stringa fin'ora in nostro possesso è:"
+   , (show . head) MIU.axioms
    , ""
-   , unlines $ map show axioms
-
    , "Regole di derivazione:"
    , ""
    , "Regola I: Se si possiede una stringa che termina con una I,"
@@ -66,19 +81,20 @@ pag 37 = putStr $ unlines
    , "Esempi:"
    , unlines $ map 
       ( \s -> "Da " ++ s ++ " si può ottenere "
-               ++ (show . fromJust) (rule 2 (read s))
-               ++ "."
-      ) 
+         ++ (show . fromJust) (rule 2 (read s))
+         ++ "."
+      )
       ["MIU", "MUM", "MU"]
    , "Regola III: Se in una delle stringhe della collezione c'è III,"
       ++ " si può costruire una nuova stringa sostituendo U al posto di III."
    , ""
    , "Esempi:"
    , unlines $ map
-      ( \s -> let s' = rule 3 (read s) in
-         "A partire da " ++ s 
-         ++ (if isNothing s' then " non"   else "" ) ++ " si può costruire "
-         ++ maybe "niente" show s'                   ++ "."
+      ( \s -> let s' = rule 3 (read s) in concat
+         [ "A partire da ", s 
+         , if isNothing s' then " non" else "", " si può costruire "
+         , maybe "niente" show s', "."
+         ]
       ) 
       ["UMIIIMU","MIIII","IIMII","MIII"]
    ]
@@ -89,9 +105,10 @@ pag 38 = putStr $ unlines
    , ""
    , "Esempi:"
    , unlines $ map 
-      ( \s -> "Da " ++ s ++ " si ottiene "
-               ++ (show . fromJust) (rule 4 (read s))
-               ++ "."
+      ( \s -> concat
+         [ "Da ",  s , " si ottiene "
+         , (show . fromJust) (rule 4 (read s)) , "."
+         ]
       ) 
       ["UUU", "MUUUIII"]   
    ]
@@ -100,6 +117,12 @@ pag 39 = putStr $ unlines
    , "Ecco una derivazione del teorema MUIIU:"
    , show (sequential [2,2,1,3,2,4])
    ]
+----------------------- Capitolo II --------------------------------
+pag 50 = do
+   putStrLn "\nAlcune stringhe del sistema pg:"
+   sample (arbitrary :: Gen PG.String)
+   putStrLn ""
+----------------------- Capitolo III -------------------------------
 pag 80 = putStr $ unlines
    [ ""
    , "Ecco un rompicapo su cui riflettere (...): " 
@@ -116,6 +139,7 @@ pag 80 = putStr $ unlines
    , "- la sequenza \"allungata\" di 5: "
    , show (continue' figure 5)
    ]
+-------------------------- Jabberwocky ----------------------------
 pag 397 = putStr $ unlines
    [ ""
    , "IL MASCELLONTE"
@@ -126,8 +150,16 @@ pag 397 = putStr $ unlines
    , ""
    , jabberwocky
    ]
-pag n | n `notElem` index = putStrLn "Questa pagina non ha contenuti implementabili."
-      | otherwise         = putStrLn "Ci stiamo lavorando..."
+---------------------------- FINE ---------------------------------
+pag n = putStrLn $
+   if n `elem` index 
+   then "\nCi stiamo lavorando...\n"
+   else unlines
+      [ ""
+      , "Questa pagina non ha contenuti implementabili."
+      , ""
+      , showIndex
+      ]
 
 main :: IO ()
-main = undefined
+main = toc
