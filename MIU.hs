@@ -91,3 +91,4 @@ instance Show Derivation where
       roman 2 = "II"
       roman 3 = "III"
       roman 4 = "IV"
+      roman _ = undefined
