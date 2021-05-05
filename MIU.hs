@@ -2,7 +2,7 @@ module MIU where
 
 import Parsing ( oneOrMore, parse, readsP )
 import Data.List ( isInfixOf )
-import Data.Maybe ( maybeToList, fromJust )
+import Data.Maybe ( maybeToList, fromJust, isNothing )
 import Test.QuickCheck ( elements, Arbitrary(arbitrary) )
 
 -- pag 36 --
@@ -75,7 +75,8 @@ sequential :: [Rule] -> Derivation
 sequential = Derivation . zip [1..]
 
 instance Show Derivation where
-   show d@(Derivation xs) = unlines $ zipWith3
+   show d@(Derivation xs) | isNothing (theorems d) = "Invalid derivation.\n"
+                          | otherwise              =  unlines $ zipWith3
       (\ i t s -> "(" ++ show i ++ ")" ++ "  " ++ show t ++ "\t\t" ++ s)
       [1..]
       (fromJust (theorems d))
