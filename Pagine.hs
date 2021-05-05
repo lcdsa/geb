@@ -1,5 +1,6 @@
 module Pagine where
 
+import Data.List
 import Data.Maybe
 import Euterpea hiding (play)
 
@@ -13,17 +14,38 @@ import Jabberwocky (jabberwocky)
 
 import Test.QuickCheck
 
+index = 
+ [ 6, 9                 -- Introduzione: un'offerta musico-logica
+ , 36, 37, 38, 39, 43   -- Capitolo I (Il gioco MU)
+ , 80                   -- Capitolo III (Figura e sfondo)
+ , 397                  -- Suite anglo-franco-italo-tedesca
+ ]
+
 pag :: Int -> IO ()
+pag 0 = putStr $ unlines
+   [ "-----------------------------------------"
+   , "Contenuti implementabili per il libro"
+   , ""
+   , "\"Gödel, Escher, Bach: "
+   , "\tun'Eterna Ghirlanda Brillante\""
+   , ""
+   , " di Douglas R. Hofstadter."
+   , "-----------------------------------------"
+   , ""
+   , "Pagine con contenuti implementabili:"
+   , intercalate ", " (map show index)
+   , ""
+   ]
 pag 6 = do
-   putStrLn "Il Tema Regio"
+   putStrLn "\nIl Tema Regio"
    play royalTheme 
 pag 9 = do
-   putStrLn "Canone inverso di Scott E. Kim sul tema Good King Wenceslas"
+   putStrLn "\nCanone inverso di Scott E. Kim sul tema Good King Wenceslas"
    play $ theme :=: variation
-   putStrLn "Canone inverso \"algoritmico\" sul tema Good King Wenceslas"
+   putStrLn "\nCanone inverso \"algoritmico\" sul tema Good King Wenceslas"
    play $ inverseCanon (2/4) theme
 pag 36 = do
-   putStrLn "Alcune stringhe del sistema MIU:"
+   putStrLn "\nAlcune stringhe del sistema MIU:"
    sample (arbitrary :: Gen MIU.String)
    putStrLn ""
 pag 37 = putStr $ unlines
@@ -55,8 +77,7 @@ pag 37 = putStr $ unlines
       ( \s -> let s' = rule 3 (read s) in
          "A partire da " ++ s 
          ++ (if isNothing s' then " non"   else "" ) ++ " si può costruire "
-         ++ (if isNothing s' then "niente" else show $ fromJust s')
-         ++ "."
+         ++ maybe "niente" show s'                   ++ "."
       ) 
       ["UMIIIMU","MIIII","IIMII","MIII"]
    ]
@@ -104,6 +125,8 @@ pag 397 = putStr $ unlines
    , ""
    , jabberwocky
    ]
-pag _ = putStrLn "Niente di interessante..."
+pag n | n `notElem` index = putStrLn "Questa pagina non ha contenuti implementabili."
+      | otherwise         = putStrLn "Ci stiamo lavorando..."
 
+main :: IO ()
 main = undefined
