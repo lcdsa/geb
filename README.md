@@ -4,7 +4,7 @@
 2. [Il sistema PG](PG.hs)
 3. [Rompicapo sequenza numerica](NumberSequence.hs) (da pag. 80)
 
-# Note di istallazione
+# Note di installazione
 
 ## Euterpea (linux)
 
