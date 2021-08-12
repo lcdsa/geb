@@ -8,6 +8,6 @@
 
 ## Euterpea (linux)
 
-1. scarica un sound font qualunque (.sf2)
-2. rinominalo "default.sf2" e salvalo /usr/share/soundfonts/
+1. scarica un sound font qualunque (`.sf2`)
+2. rinominalo `default.sf2` e salvalo in `/usr/share/soundfonts/`
 3. avvia server MIDI (e.g. fluidsynth)
