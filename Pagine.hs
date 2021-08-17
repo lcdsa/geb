@@ -40,82 +40,112 @@ pag 0 = putStr $ unlines
    , "-----------------------------------------"
    , ""
    , showIndex
-   , ""
    ]
 --------------------- Introduzione -------------------------------
 pag 6 = do
-   putStrLn "\nIl Tema Regio"
-   play royalTheme 
+   putStr $ unlines 
+      [ ""
+      , "Il Tema Regio"
+      , ""
+      , "> askThenPlay royalTheme"
+      ]
+   askThenPlay royalTheme 
 pag 9 = do
-   putStrLn "\nCanone inverso di Scott E. Kim sul tema Good King Wenceslas"
-   play (theme :=: variation)
-   putStrLn "\nCanone inverso \"algoritmico\" sul tema Good King Wenceslas"
-   play (inverseCanon (2/4) theme)
+   putStr $ unlines 
+      [ ""
+      , "Canone inverso di Scott E. Kim sul tema Good King Wenceslas"
+      , "> askThenPlay (theme :=: variation)"
+      ] 
+   askThenPlay (theme :=: variation)
+   putStr $ unlines
+      [ ""
+      , "Canone inverso \"algoritmico\" sul tema Good King Wenceslas"
+      , "> askThenPlay (inverseCanon (2/4) theme)"
+      ]
+   askThenPlay (inverseCanon (2/4) theme)
 ---------------------- Capitolo I --------------------------------
 pag 36 = do
    putStr $ unlines
       [ ""
-      , "La prima cosa da dire del nostro sistema formale, il \"sistema MIU\""
-         ++ " è che esso utilizza soltanto tre lettere dell'alfabeto:"
-      , intercalate ", " (map show [M,I,U])
-      , ""
-      , "Ecco alcune stringhe del sistema MIU:"
+      , "Il sistema MIU utilizza soltanto tre lettere"
+         ++ " dell'alfabeto: M, I e U:"
+      , "> \"MIU\" :: MIU.String"
       ]
-   sample (arbitrary :: Gen MIU.String)
-   putStrLn ""
+   print ("MIU" :: MIU.String)
+   putStr $ unlines
+      [ "> \"abc\" :: MIU.String"
+      , "*** Exception: Prelude.undefined"
+      ]
+{-
+      , ""
+      , "Una stringa del sistema MIU generata casualmente:"
+      , "> generate randomString"
+      ]
+   x <- generate randomString
+   print x
+   putStrLn "> generate randomString"
+   y <- generate randomString
+   print y
+   putStrLn "> s <- generate randomString"
+   z <- generate randomString
+   putStrLn "> s"
+   print z
+   putStrLn "> s"
+   print z
+-}
+   putStr $ unlines
+      [ ""
+      , "Altre possibili stringhe del sistema MIU:"
+      , "> sample randomString"
+      ]
+   sample randomString
+   
 pag 37 = putStr $ unlines
    [ ""
-   , "Ma sebbene tutte queste stringhe siano legittime,"
-      ++ " non sono stringhe \"in nostro possesso\"."
-   , "In effetti, l'unica stringa fin'ora in nostro possesso è:"
-   , (show . head) MIU.axioms
+   , "Stringhe \"in nostro possesso\":"
+   , "> MIU.axioms"
+   , show $ MIU.axioms
    , ""
    , "Regole di derivazione:"
    , ""
    , "Regola I: Se si possiede una stringa che termina con una I,"
       ++ " si può aggiungere una U alla fine."
+   , "> rule 1 \"MI\""
+   , show $ rule 1 "MI"
    , ""
    , "Regola II: Si abbia Mx."
       ++ " Allora si può includere Mxx nella collezione."
+   , "> rule 2 \"MIU\""
+   , show $ rule 2 "MIU"
    , ""
-   , "Esempi:"
-   , unlines $ map 
-      ( \s -> "Da " ++ s ++ " si può ottenere "
-         ++ (show . fromJust) (rule 2 (read s))
-         ++ "."
-      )
-      ["MIU", "MUM", "MU"]
-   , "Regola III: Se in una delle stringhe della collezione c'è III,"
-      ++ " si può costruire una nuova stringa sostituendo U al posto di III."
-   , ""
-   , "Esempi:"
-   , unlines $ map
-      ( \s -> let s' = rule 3 (read s) in concat
-         [ "A partire da ", s 
-         , if isNothing s' then " non" else "", " si può costruire "
-         , maybe "niente" show s', "."
-         ]
-      ) 
-      ["UMIIIMU","MIIII","IIMII","MIII"]
+   , "Regola III: Se in una delle stringhe"
+      ++ " della collezione c'è III,"
+      ++ " si può costruire una nuova stringa"
+      ++ " sostituendo U al posto di III." 
+   , "> rule 3 \"UMIIIMU\""
+   , show $ rule 3 "UMIIIMU"
    ]
 pag 38 = putStr $ unlines
    [ ""
-   , "Regola IV: Se all'interno di una delle stringhe della collezione c'è UU,"
+   , "Regola IV: Se all'interno di una delle"
+      ++ " stringhe della collezione c'è UU,"
       ++ " si può eliminarlo."
+   , "> rule 4 \"UUU\""
+   , show $ rule 4 "UUU"
    , ""
-   , "Esempi:"
-   , unlines $ map 
-      ( \s -> concat
-         [ "Da ",  s , " si ottiene "
-         , (show . fromJust) (rule 4 (read s)) , "."
-         ]
-      ) 
-      ["UUU", "MUUUIII"]   
+   , "Chiamiamo le stringhe in nostro possesso \"assiomi\"."
+   , "> MIU.axioms"
+   , show MIU.axioms
+   , ""
+   , "Gli assiomi sono teoremi."
+   , "> all (isKnownTrue . isTheorem) MIU.axioms"
+   , show $ all (isKnownTrue . isTheorem) MIU.axioms
    ]
 pag 39 = putStr $ unlines
    [ ""
-   , "Ecco una derivazione del teorema MUIIU:"
-   , show (sequential [2,2,1,3,2,4])
+   , "La string MUIIU è un teorema:"
+   , "> isTheorem' \"MUIIU\" (derivation [2,2,1,3,2,4])"
+   , show $ isTheorem' "MUIIU" (derivation [2,2,1,3,2,4])
    ]
 ----------------------- Capitolo II --------------------------------
 pag 50 = do
@@ -126,13 +156,13 @@ pag 50 = do
 pag 80 = putStr $ unlines
    [ ""
    , "Ecco un rompicapo su cui riflettere (...): " 
-   , "come si può caratterizzare il seguente insieme di numeri "
-      ++ "interi (o il suo spazio negativo)?"
+   , "come si può caratterizzare il seguente"
+      ++ " insieme di numeri interi?"
+      ++ " (o il suo spazio negativo)"
    , ""
    , show figure
    , ""
    , "Qualche indizio/osservazione:"
-   , ""
    , "- lo \"sfondo\" (o complemento) di questa \"figura\": " 
    , show (background figure)
    , "- il numero successivo: " ++ show (fromJust $ next figure)
@@ -144,14 +174,14 @@ pag 397 = putStr $ unlines
    [ ""
    , "IL MASCELLONTE"
    , "traduzione italiana alternativa del \"Jabberwocky\""
-      ++ "di Lewis Carrol, a cura di Arianna Masciolini"
+      ++ " di Lewis Carrol, a cura di Arianna Masciolini"
    , ""
    , "-----------------------------------------"
    , ""
    , jabberwocky
    ]
 ---------------------------- FINE ---------------------------------
-pag n = putStrLn $
+pag n = putStr $
    if n `elem` index 
    then "\nCi stiamo lavorando...\n"
    else unlines
@@ -162,4 +192,35 @@ pag n = putStrLn $
       ]
 
 main :: IO ()
-main = toc
+main = browse 0
+
+browse :: Int -> IO ()
+browse n = do 
+   putStrLn "-----------------------------------------"
+   putStrLn $ " Pagina " ++ show  n ++ ":"
+   putStrLn "-----------------------------------------"
+   pag n 
+   putStrLn ""
+   browse' n
+ where
+   browse' :: Int -> IO ()
+   browse' n = do
+      putStrLn "-----------------------------------------"
+      putStr "(n) avanti, (p) indietro, (q) esci: "
+      c <- getChar
+      putStrLn ""
+      case c of
+         'n' -> browse (n+1)
+         'p' -> if n > 0 then browse (n-1) else browse n
+         'q' -> return ()
+         _   -> browse' n 
+
+
+askThenPlay :: Music Pitch -> IO ()
+askThenPlay mp = do
+   putStr "Eseguire traccia musicale? (s/n): "
+   c <- getChar
+   putStrLn "\n"
+   case c of
+      's' -> play mp
+      ___ -> return ()
